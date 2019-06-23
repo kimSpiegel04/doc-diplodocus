@@ -1,0 +1,123 @@
+/* .container{
+    width: 90%;
+} */
+
+.col{
+    margin: 10px;
+}
+
+.left-row{
+    margin-right: 10px;
+}
+
+.input-item{
+    border: 2px red solid;
+    text-align: center;
+    padding: 5px;
+}
+
+.num-input{
+    width: 10%;
+    height: 38px;
+}
+
+.select{
+    height: 38px;
+}
+
+.text{
+    height:38px;
+    width: 50%;
+}
+
+.submit{
+    background-color: blue;
+}
+
+.submit-button{
+    height: 38px;
+    background-color: #58b368;
+}
+
+.stats{
+    margin-top: 40px;
+    background-color: blue;
+}
+
+ul {
+    width: 100%;
+}
+
+li{
+    display: inline;
+}
+
+.exp{
+    float: right;
+    margin-right: 50px;
+}
+
+.button-container {
+    display:none;
+}
+
+.item-container {
+    display: flex;
+    justify-content: space-between; 
+    transition: all 300ms;
+    transition-timing-function: ease-in;
+}
+
+.item-container:hover {
+    cursor: pointer;
+    background-color: green;
+}
+
+.fas{
+    clear:both;
+    margin-left: .3%;
+    margin-right: .3%;
+    text-align: center;
+}
+
+.fa-drumstick-bite{
+    color: white;
+    background-color: lightcoral;
+    padding: 5px;
+    width: 15%;
+}
+
+.fa-book{
+    color: white;
+    background-color: lightblue;
+    padding: 5px;
+    width: 15%;
+}
+
+.fa-box-open{
+    color: white;
+    background-color: plum;
+    padding: 5px;
+    width: 15%;
+}
+
+.fa-heart{
+    color: white;
+    background-color: pink;
+    padding: 5px;
+    width: 15%;
+}
+
+.fa-seedling{
+    color: white;
+    background-color: lightgreen;
+    padding: 5px;
+    width: 15%;
+}
+
+.fa-trash-alt{
+    color: white;
+    background-color: red;
+    padding: 5px;
+    width: 15%;
+}
