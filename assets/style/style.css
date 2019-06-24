@@ -1,47 +1,96 @@
-/* .container{
-    width: 90%;
-} */
-
-.col{
-    margin: 10px;
+body{
+    font-family: 'Roberto', sans-serif;
 }
 
-.left-row{
-    margin-right: 10px;
+html,body {
+    height: 100vh;
+    background-image: linear-gradient(
+        to right bottom,
+        rgba(51, 206, 4, 0.253),
+        rgba(0, 36, 3, 0.8)),
+    url(../images/monika-grabkowska-686440-unsplash.jpg);
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+}
+
+.header{
+    width: 100%;
+    box-shadow: -5px 10px 26px -9px rgba(140,138,140,1);
+    background-color: #e8e6e3c9;
+    height: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.title{
+    font-family: 'Rubik Mono One', sans-serif;
+    position: absolute;
+    color: #7F2A49;
+    top: -12px;
+    left: 30px;
+    text-shadow: -1px 0 #e8e6e3, 0 1px #e8e6e3, 1px 0 #e8e6e3, 0 -1px #e8e6e3;
 }
 
 .input-item{
-    border: 2px red solid;
     text-align: center;
-    padding: 5px;
+    padding: 10px;
 }
 
 .num-input{
-    width: 10%;
+    width: 12%;
     height: 38px;
 }
 
 .select{
     height: 38px;
+    width: 17%;
 }
 
 .text{
     height:38px;
-    width: 50%;
+    width: 45%;
 }
 
 .submit{
-    background-color: blue;
+    background-color:rgba(61, 61, 61, 0.75);
 }
 
 .submit-button{
     height: 38px;
-    background-color: #58b368;
+    width: 20%;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+}
+
+.submit-button:hover{
+    cursor: pointer;
 }
 
 .stats{
     margin-top: 40px;
-    background-color: blue;
+    background-color:rgba(61, 61, 61, 0.75);
+    color: white;
+    padding: 20px;
+    height: 75%;
+    text-align: left;
+    display: block;
+    font-size: 20px;
+}
+
+.stats>p{
+    letter-spacing: 3px;
+}
+
+.user-stat{
+    font-size: 30px;
+    color:rgb(189, 159, 171);
+    font-weight: 600;
+    /* text-shadow: 1px 1px white; */
 }
 
 ul {
@@ -52,25 +101,50 @@ li{
     display: inline;
 }
 
-.exp{
+.lbs-listing{
+    margin-left: 40%;
+    color: white;
+}
+
+.item-listing{
+    color: white;
+    font-weight: 600;
+}
+
+.exp-listing{
     float: right;
-    margin-right: 50px;
+    margin-right: 5px;
+}
+
+.red{
+    color: red;
+}
+.yellow{
+    color: yellow;
+}
+.green{
+    color: green;
 }
 
 .button-container {
     display:none;
 }
 
+.list{
+    background-color:rgba(61, 61, 61, 0.75);
+}
+
 .item-container {
     display: flex;
     justify-content: space-between; 
-    transition: all 300ms;
+    transition: all 100ms;
     transition-timing-function: ease-in;
+    font-size: 20px;
 }
 
 .item-container:hover {
     cursor: pointer;
-    background-color: green;
+    background-color:rgba(127, 42, 73, 0.514);
 }
 
 .fas{
@@ -121,3 +195,15 @@ li{
     padding: 5px;
     width: 15%;
 }
+
+.fact-box{
+    border: 2px red solid;
+    margin-bottom: 30px;
+}
+
+.fact-intro{
+    font-size: 20px;
+}
+
+/* , */
+        /* linear-gradient(to bottom, rgba(255, 255, 255, 0) 0, #fff 100%) */

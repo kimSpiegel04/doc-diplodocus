@@ -3,19 +3,24 @@
 
 <head>
     <meta charset="utf-8">
-    <title>No Waste</title>
+    <title>Beet Waste</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/style/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Rubik+Mono+One&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a23a8b73c4.js"></script>
 </head>
 <body>
-    <h1>NAME OF APP</h1>
+    <div class='header'>
+        <h1 class='title'>Beet Waste</h1>
+    </div>
+
 
     <div class='container'>
 
         <div class="row">
             <!-- input and stats -->
-            <div class="col-5">
+            <div class="col-4">
+                <!-- input -->
                 <div class='row submit left-row'>
                     <form class='input-item'>
                         <input type='text' class='text' placeholder="Item">
@@ -28,50 +33,41 @@
                         <button type="button" class="submit-button">Add</button>
                     </form>
                 </div>
+                <!-- stats -->
                 <div class='row stats left-row'>
-                    <h1>stats</h1>
+                    <h3>See how you're doing:</h3>
+                    <p>Bought: <span class='user-stat'>300</span> lbs.</p>                    
+                    <p>Used: <span class='user-stat'>200</span> lbs.</p>                    
+                    <p>Donated: <span class='user-stat'>20</span> lbs.</p>
+                    <p>Composted: <span class='user-stat'>20</span> lbs.</p>                    
+                    <p>Pitched: <span class='user-stat'>60</span> lbs.</p>
+                    
                 </div>
             </div>
 
 
             <!-- item list -->
-            <div class="col-5">
-                <div class="item-container">
-                    <ul>
-                        <li class='item-listin'>Item</li>
-                        <li class='exp'>Expires</li>
-                    </ul>
+            <div class="col-8">
+                <div class='list'>
+                    <div class="item-container">
+                        <ul>
+                            <li class='item-listing'>Item</li>
+                            <li class='lbs-listing'>lbs</li>
+                            <li class='exp-listing'>Expires</li>
+                        </ul>
+                    </div>
+                    <div class="button-container">
+                        <a href="#"><i class="fas fa-drumstick-bite" title="Used Item"></i></a>
+                        <a href="#" title='Find Recipe'><i class="fas fa-book"></i></a>
+                        <a href="#" title='Preserve'><i class="fas fa-box-open"></i></a>
+                        <a href="#" title='Donate'><i class="fas fa-heart"></i></a>
+                        <a href="#" title='Compost'><i class="fas fa-seedling"></i></a>
+                        <a href="#" title='Thrown Out'><i class="fas fa-trash-alt"></i></i></a>
+                    </div>
+                    
                 </div>
-                <div class="button-container">
-                    <a href="#"><i class="fas fa-drumstick-bite"></i></a>
-                    <a href="#"><i class="fas fa-book"></i></a>
-                    <a href="#"><i class="fas fa-box-open"></i></a>
-                    <a href="#"><i class="fas fa-heart"></i></a>
-                    <a href="#"><i class="fas fa-seedling"></i></a>
-                    <a href="#"><i class="fas fa-trash-alt"></i></i></a>
-                </div>
-
-                <div class="item-container">
-                    <ul>
-                        <li class='item-listin'>Item</li>
-                        <li class='exp'>Expires</li>
-                    </ul>
-                </div>
-                <div class="button-container">
-                    <a href="#"><i class="fas fa-drumstick-bite"></i></a>
-                    <a href="#"><i class="fas fa-book"></i></a>
-                    <a href="#"><i class="fas fa-box-open"></i></a>
-                    <a href="#"><i class="fas fa-heart"></i></a>
-                    <a href="#"><i class="fas fa-seedling"></i></a>
-                    <a href="#"><i class="fas fa-trash-alt"></i></i></a>
-                </div>
-                
             </div>
 
-            <!-- random face -->
-            <div class="col-2">
-                3 of 3
-            </div>
         </div>
 
     </div>
