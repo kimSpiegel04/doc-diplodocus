@@ -1,3 +1,5 @@
+/* INDEX */
+
 body{
     font-family: 'Roberto', sans-serif;
 }
@@ -12,7 +14,91 @@ html,body {
     background-size: cover;
     background-position: top;
     background-repeat: no-repeat;
+    background-attachment: fixed;
 }
+
+.wrapper{
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+.beet{
+    height: 150px;
+    margin-left: 25px;
+}
+
+#sidebar {
+    min-width: 200px;
+    max-width: 200px;
+    min-height: 100vh;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+#sidebar.active {
+    margin-left: -200px;
+}
+
+p {
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #999;
+}
+
+a, a:hover, a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: rgba(127, 42, 73, 0.486);
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+#sidebar ul li a:hover {
+    background-color: rgba(127, 42, 73, 0.5);
+}
+
+.navbar{
+    background-color: rgba(61, 61, 61, 0.75);
+    text-align: center;
+    margin-right: 50px;
+    width: 50px;
+}
+
+#sidebarCollapse:hover{
+    cursor: pointer;
+    color: #7F2A49;
+}
+
+.container-fluid{
+    text-align: center;
+    margin-right: 20px;
+}
+
+#sidebarCollapse{
+    color: white;
+}
+
+
+
 
 .header{
     width: 100%;
@@ -44,8 +130,8 @@ html,body {
 }
 
 .select{
-    height: 38px;
-    width: 17%;
+    color: white;
+    font-weight: 600;
 }
 
 .text{
@@ -69,6 +155,7 @@ html,body {
 
 .submit-button:hover{
     cursor: pointer;
+    background-color: rgb(50, 112, 53);
 }
 
 .stats{
@@ -90,7 +177,6 @@ html,body {
     font-size: 30px;
     color:rgb(189, 159, 171);
     font-weight: 600;
-    /* text-shadow: 1px 1px white; */
 }
 
 ul {
@@ -128,6 +214,7 @@ li{
 
 .button-container {
     display:none;
+    text-align: center;
 }
 
 .list{
@@ -205,5 +292,26 @@ li{
     font-size: 20px;
 }
 
-/* , */
-        /* linear-gradient(to bottom, rgba(255, 255, 255, 0) 0, #fff 100%) */
+/* RECIPE */
+.recipe-list{
+    margin-top: 20px;
+    background-color:rgba(61, 61, 61, 0.75);
+    color: white;
+    padding: 20px;
+    height: 75%;
+    text-align: center;
+    display: block;
+    font-size: 20px;
+}
+
+.recipe{
+    margin-top: 20px;
+    background-color:rgba(61, 61, 61, 0.75);
+    color: white;
+    padding: 20px;
+    height: 75%;
+    text-align: left;
+    display: block;
+}
+
+/* USER INFORMATION */
