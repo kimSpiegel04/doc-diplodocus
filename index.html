@@ -4,6 +4,9 @@
 <head>
     <meta charset="utf-8">
     <title>Beet Waste</title>
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-database.js"></script>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/style/style.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto|Rubik+Mono+One&display=swap" rel="stylesheet">
@@ -90,26 +93,26 @@
                     <!-- item list -->
                     <div class="col-8">
                         <div class='list'>
-                            <div class="item-container">
-                                <ul>
+                            <!-- <div class="item-container"> -->
+                                <!-- <ul>
                                     <li class='item-listing'>Item</li>
                                     <li class='lbs-listing'>lbs</li>
                                     <li class='exp-listing'>Expires</li>
-                                </ul>
-                            </div>
-                            <div class="button-container">
+                                </ul> -->
+                            <!-- </div> -->
+                            <!-- <div class="button-container"> -->
 
                                 <!-- add to 'used' -->
-                                <a href="#"><i class="fas fa-drumstick-bite" title="Used Item"></i></a>
+                                <!-- <a href="#"><i class="fas fa-drumstick-bite" title="Used Item"></i></a> -->
                                 <!-- add 6 months to expiration and delete button -->
-                                <a href="#" title='Preserved'><i class="fas fa-box-open"></i></a>
+                                <!-- <a href="#" title='Preserved'><i class="fas fa-box-open"></i></a> -->
                                 <!-- add to 'donated' -->
-                                <a href="#" title='Donate'><i class="fas fa-heart"></i></a>
+                                <!-- <a href="#" title='Donate'><i class="fas fa-heart"></i></a> -->
                                 <!-- add to 'composted' -->
-                                <a href="#" title='Compost'><i class="fas fa-seedling"></i></a>
+                                <!-- <a href="#" title='Compost'><i class="fas fa-seedling"></i></a> -->
                                 <!-- add to thrown out -->
-                                <a href="#" title='Thrown Out'><i class="fas fa-trash-alt"></i></i></a>
-                            </div>
+                                <!-- <a href="#" title='Thrown Out'><i class="fas fa-trash-alt"></i></i></a> -->
+                            <!-- </div> -->
                             
                         </div>
                     </div>
@@ -123,6 +126,7 @@
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
