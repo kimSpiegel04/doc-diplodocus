@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    //show values
+    $(".user-bought").text(localStorage.getItem("bought"));
 
     // document.querySelector('#sidebar').classList.remove('active');
     $('#sidebarCollapse').on('click', function () {
@@ -21,18 +23,14 @@ $(document).ready(function () {
 
     //Global Vars
     var database=firebase.database();
-
     var bought=0;
+    var boughtArr=[3,2,1];
     var used=0;
-    var donated=0;
-    var composted=0;
-    var pitched=0;
+    var usedArr=[];
+    // var donated=0;
+    // var composted=0;
+    // var pitched=0;
 
-    $('.user-bought').text(bought);
-    $('.user-used').html(used);
-    $('.user-donated').html(donated);
-    $('.user-composted').html(composted);
-    $('.user-pitched').html(pitched);
 
     // //Js vars
     // var expiresDate;
@@ -59,7 +57,8 @@ $(document).ready(function () {
             document.getElementById(i).style.color='red';
         }
     }
-    
+
+    bought = boughtArr.reduce((x, y) => x + y);
 
     $('#submit-info').on('click', function(event){
         event.preventDefault();
@@ -68,6 +67,13 @@ $(document).ready(function () {
         var item=$('#text').val().trim();
         var amount=$('#number').val().trim();
         var num=parseInt(amount);
+
+        //update bought amount
+        boughtArr.push(num);
+        bought = boughtArr.reduce((x, y) => x + y);
+        localStorage.clear();
+        localStorage.setItem("bought", bought);
+        $(".user-bought").text(localStorage.getItem("bought"));
 
         // temp object for data
         var newFood={
@@ -92,12 +98,6 @@ $(document).ready(function () {
         var inputDate = ss.val().inputDate;
         now = new Date().getTime();
 
-        console.log('key: '+key);
-        console.log('item: '+item);
-        console.log('amount: '+amount);
-        console.log('input date: '+inputDate);
-        console.log('current time '+now);
-
         //calculate expiration date
         expiresDate = getExpDate(inputDate);
         console.log('food will expire on '+expiresDate);
@@ -113,11 +113,16 @@ $(document).ready(function () {
                 <div class='exp-listing col-3' id=${item}>${difference} days</div>
             </div>
                 <div class="button-container" data-name=${item} data-key=${key}>
-                <a href="#"><i class="fas fa-drumstick-bite" title="Used Item" value=${amount}></i></a>
-                <a href="#" title='Preserved' class='preserved'><i class="fas fa-box-open" value=${amount}></i></a>
-                <a href="#" title='Donate' class='donate'><i class="fas fa-heart" value=${amount}></i></a>
-                <a href="#" title='Compost' class='compost'><i class="fas fa-seedling" value=${amount}></i></a>
-                <a href="#" title='Thrown Out' class='pitched'><i class="fas fa-trash-alt" value=${amount}></i></i></a>
+
+                <button value=${amount} data-key=${key} class='used-btn'><i class="fas fa-drumstick-bite" title="Used Item" ></i></button>
+
+                <button title='Preserved' class='preserved'><i class="fas fa-box-open" value=${amount} data-key=${key}></i></button>
+
+                <button title='Donate' class='donate'><i class="fas fa-heart" value=${amount} data-key=${key}></i></button>
+
+                <button title='Compost' class='compost'><i class="fas fa-seedling" value=${amount} data-key=${key}></i></button>
+
+                <button title='Thrown Out' class='pitched'><i class="fas fa-trash-alt" value=${amount} data-key=${key}></i></button>
             </div>`         
         );
         countdown(item,difference);
@@ -128,9 +133,44 @@ $(document).ready(function () {
             return false;
         });
 
+        $(".fa-drumstick-bite").click(function() {
+            console.log(this);
+            // console.log(this)
+            keyref = $(this).attr("data-key");
+            // console.log(keyref);
+            // usedArr.push($(this).val());
+            // used = boughtArr.reduce((x, y) => x + y);
+            // used = used + Number($(this).val());
+            // console.log(usedArr);
+            // $('.user-used').text(used);  
+            // database.ref().child(keyref).remove();
+            // $('#thisdiv').load(document.URL +  ' #thisdiv');
+        });
+        // boughtArr.push(num);
+        // bought = boughtArr.reduce((x, y) => x + y);
+        // localStorage.clear();
+        // localStorage.setItem("bought", bought);
+        // $(".user-bought").text(localStorage.getItem("bought"));
+
     }, function(errorObject){
         console.log('The read failed: '+errorObject.code);
     });
+                $(".fa-drumstick-bite").click(function() {
+                console.log(this);
+                // keyref = $(this).attr("data-key");
+                // console.log(keyref);
+                // // usedArr.push(Number($(this).val()));
+                // // used = used + Number($(this).val());
+                // console.log(Number($(this).val()));
+                // $('.user-used').text(used);  
+                // database.ref().child(keyref).remove();
+                // $('#thisdiv').load(document.URL +  ' #thisdiv');
+            });
+            // boughtArr.push(num);
+            // bought = boughtArr.reduce((x, y) => x + y);
+            // localStorage.clear();
+            // localStorage.setItem("bought", bought);
+            // $(".user-bought").text(localStorage.getItem("bought"));
 
     function counter(){
         $('.list').empty();
@@ -150,6 +190,7 @@ $(document).ready(function () {
             difference = getDifference(now,expiresDate);
             console.log('food will expire in '+difference+' days');
 
+
             $('.list').append(
                 `<div class='item-container row' data-name=${item} data-key=${key}>
                     <div class='item-listing col-6'>${item}</div>
@@ -166,24 +207,18 @@ $(document).ready(function () {
                 </div>`        
             );
 
-            $('.item-container').click(function() {
-                // $('.button-container').hide();
-                var foodItem = $(this).attr('data-name');
-                $('.button-container[data-name=' + foodItem + ']').show();
-                // return false;
-            });
+            // $('.item-container').click(function() {
+            //     // $('.button-container').hide();
+            //     var foodItem = $(this).attr('data-name');
+            //     $('.button-container[data-name=' + foodItem + ']').show();
+            //     // return false;
+            // });
 
-            $("body").on('click', '.fa-drumstick-bite',function() {
-                // keyref = $(this).attr("data-key");
-                bought = bought + Number($(this).val());
-                console.log(bought);
-                $('.user-used').text(bought);  
-                // database.ref().child(keyref).remove();
-                // window.location.reload();
-            });
+
         })
     };
     setInterval(counter, 86400000);
+
 
 });
 
