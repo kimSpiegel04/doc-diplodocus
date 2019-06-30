@@ -179,16 +179,7 @@ a, a:hover, a:focus {
     font-weight: 600;
 }
 
-ul {
-    width: 100%;
-}
-
-li{
-    display: inline;
-}
-
 .lbs-listing{
-    margin-left: 40%;
     color: white;
 }
 
@@ -197,10 +188,9 @@ li{
     font-weight: 600;
 }
 
-.exp-listing{
+/* .exp-listing{
     float: right;
-    margin-right: 5px;
-}
+} */
 
 .button-container {
     display:none;
@@ -213,6 +203,7 @@ li{
 
 .item-container {
     display: flex;
+    padding: 5px;
     justify-content: space-between; 
     transition: all 100ms;
     transition-timing-function: ease-in;
@@ -221,6 +212,8 @@ li{
 
 .item-container:hover {
     cursor: pointer;
+    /* margin-right: 5px; */
+    /* width: 100%; */
     background-color:rgba(127, 42, 73, 0.514);
 }
 
@@ -238,11 +231,19 @@ li{
     width: 15%;
 }
 
+.fa-drumstick-bite:active{
+    background-color: rgb(185, 101, 101);
+}
+
 .fa-book{
     color: white;
     background-color: lightblue;
     padding: 5px;
     width: 15%;
+}
+
+.fa-book:active{
+    background-color: rgb(141, 174, 185);
 }
 
 .fa-box-open{
@@ -252,11 +253,19 @@ li{
     width: 15%;
 }
 
+.fa-box-open:active{
+    background-color: rgb(158, 116, 158);
+}
+
 .fa-heart{
     color: white;
     background-color: pink;
     padding: 5px;
     width: 15%;
+}
+
+.fa-heart:active{
+    background-color: rgb(175, 131, 139);
 }
 
 .fa-seedling{
@@ -266,11 +275,19 @@ li{
     width: 15%;
 }
 
+.fa-seedling:active{
+    background-color: rgb(110, 182, 110);
+}
+
 .fa-trash-alt{
     color: white;
     background-color: red;
     padding: 5px;
     width: 15%;
+}
+
+.fa-trash-alt:active{
+    background-color: rgb(172, 0, 0);
 }
 
 .fact-box{
