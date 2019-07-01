@@ -22,15 +22,20 @@ $(document).ready(function () {
     //Global Vars
     var database=firebase.database();
 
-    var bought=0;
-    var used=0;
-    // var donated=0;
+    var bought = 0;
+    var used = 0;
+    var donated = 0;
     // var composted=0;
     // var pitched=0;
 
     //functions
     function getExpDate(input){
-        expiresDate = moment(input).add(14, 'd');
+        var expiresDate = moment(input).add(14, 'd');
+        return expiresDate;
+    }
+
+    function getPreserveDate(input){
+        var expiresDate = moment(input).add(180, 'd');
         return expiresDate;
     }
 
@@ -54,12 +59,12 @@ $(document).ready(function () {
         event.preventDefault();
 
         //grab values
-        var item=$('#text').val().trim();
-        var amount=$('#number').val().trim();
-        var num=parseInt(amount);
+        var item = $('#text').val().trim();
+        var amount = $('#number').val().trim();
+        var num = parseInt(amount);
 
         //add bought lbs
-        var newAmount=bought+num;
+        var newAmount = bought + num;
 
         // temp object for data
         var newFood={
@@ -109,13 +114,13 @@ $(document).ready(function () {
 
                 <button value=${amount} data-key=${key} title="Used Item" class='used-btn btn' data-name=${item}><i class="fas fa-drumstick-bite"></i></button>
 
-                <button title='Preserved' class='pres-btn btn' value=${amount} data-key=${key}><i class="fas fa-box-open"></i></button>
+                <button title='Preserved' class='pres-btn btn' value=${amount} data-key=${key} data-name=${item}><i class="fas fa-box-open"></i></button>
 
-                <button title='Donate' class='donate-btn btn' value=${amount} data-key=${key}><i class="fas fa-heart"></i></button>
+                <button title='Donate' class='donate-btn btn' value=${amount} data-key=${key} data-name=${item}><i class="fas fa-heart"></i></button>
 
-                <button title='Compost' class='compost-btn btn'value=${amount} data-key=${key}><i class="fas fa-seedling"></i></button>
+                <button title='Compost' class='compost-btn btn'value=${amount} data-key=${key} data-name=${item}><i class="fas fa-seedling"></i></button>
 
-                <button title='Thrown Out' class='pitched-btn btn' value=${amount} data-key=${key}><i class="fas fa-trash-alt"></i></button>
+                <button title='Thrown Out' class='pitched-btn btn' value=${amount} data-key=${key} data-name=${item}><i class="fas fa-trash-alt"></i></button>
             </div>`         
         );
         countdown(item,difference);
@@ -127,125 +132,89 @@ $(document).ready(function () {
             //used button
             $('.used-btn').off("click").on("click",function(){
                 var foodItem = $(this).attr('data-name');
+                console.log(foodItem);
                 var valOfBtn = $('.used-btn[data-name='+foodItem+']').val();
                 var num = parseInt(valOfBtn);
                 var newAmount=used+num;
-
                 database.ref('child/used').set({
                     lbsUsed: newAmount
                 });
-
-                database.ref('child/used').on("value", function(snapshot) {        
-                    console.log(snapshot.val());
-                    used = snapshot.val().lbsUsed;
-                    $('.user-used').text(used);
-            
-                }, function(errorObject) {
-                    console.log("The read failed: " + errorObject.code);
-                });
-
                 keyref = $(this).attr("data-key");
-                // $('.user-used').text(used);  
-                // database.ref().child(keyref).remove();
-                // $('#thisdiv').load(document.URL +  ' #thisdiv');
+                database.ref('child/food').child(keyref).remove();
+                window.location.reload();
                 return false;
             });
+
+            // preserve button
+            $('.pres-btn').off("click").on("click",function(){
+                var foodItem = $(this).attr('data-name');
+                console.log(foodItem);
+                // getPreserveDate(inputDate)
+                // difference = getDifference(now,getPreserveDate);
+                keyref = $(this).attr("data-key");
+                item = $(this).attr('data-name');
+                amount = $(this).attr('value');
+                
+                var freezerItem = {
+                    item : ss.val().item,
+                    amount : ss.val().amount,
+                    inputDate : firebase.database.ServerValue.TIMESTAMP
+                }
+
+                database.ref('child/freezer').push(freezerItem);
+                // store in new node
+
+                // window.location.reload();
+                return false;
+            });
+
+            $('.donate-btn').off("click").on("click",function(){
+                var foodItem = $(this).attr('data-name');
+                var valOfBtn = $('.donate-btn[data-name='+foodItem+']').val();
+                var num = parseInt(valOfBtn);
+                var newAmount=donated+num;
+                database.ref('child/donated').set({
+                    lbsDonated: newAmount
+                });
+                keyref = $(this).attr("data-key");
+                database.ref('child/food').child(keyref).remove();
+                window.location.reload();
+                return false;
+            });
+
         });
-
-        // $(".button-container").click(function() {
-        //     $('.used-btn').click(function(){
-        //         var foodItem = $(this).attr('data-name');
-        //         console.log(foodItem);
-        //         var valOfBtn = $('.used-btn[data-name='+foodItem+']').val();
-        //         console.log(valOfBtn);
-        //         // console.log(this)
-        //         keyref = $(this).attr("data-key");
-        //         return false;
-                // console.log(keyref);
-                // usedArr.push($(this).val());
-                // used = boughtArr.reduce((x, y) => x + y);
-                // used = used + Number($(this).val());
-                // console.log(usedArr);
-                // $('.user-used').text(used);  
-                // database.ref().child(keyref).remove();
-                // $('#thisdiv').load(document.URL +  ' #thisdiv');
-            // });
-        // });
-        // boughtArr.push(num);
-        // bought = boughtArr.reduce((x, y) => x + y);
-        // localStorage.clear();
-        // localStorage.setItem("bought", bought);
-        // $(".user-bought").text(localStorage.getItem("bought"));
-
     }, function(errorObject){
         console.log('The read failed: '+errorObject.code);
     });
 
-    function counter(){
-        $('.list').empty();
+    database.ref('child/used').on("value", function(snapshot) {        
+        console.log(snapshot.val());
+        used = snapshot.val().lbsUsed;
+        $('.user-used').text(used);
 
-        database.ref('child/food').on('child_added', function(ss){
-            var key = ss.key;
-            var item = ss.val().item;
-            var amount = ss.val().amount;
-            var inputDate = ss.val().inputDate;
-            now = new Date().getTime();
+    }, function(errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });
 
-            //calculate expiration date
-            expiresDate = getExpDate(inputDate);
+    database.ref('child/donated').on("value", function(snapshot) {  
+        console.log(snapshot.val());
+        donated = snapshot.val().lbsDonated;
+        $('.user-donated').text(donated);
 
-            //calculate how many days food expires
-            difference = getDifference(now,expiresDate);
+    }, function(errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });
 
-            $('.list').append(
-                `<div class='item-container row' data-name=${item} data-key=${key}>
-                    <div class='item-listing col-6'>${item}</div>
-                    <div class='lbs-listing col-3'>${amount} lbs.</div>
-                    <div class='exp-listing col-3' id=${item}>${difference} days</div>
-                </div>
-                    <div class="button-container" data-name=${item} data-key=${key}>
-    
-                    <button value=${amount} data-key=${key} title="Used Item" class='used-btn btn' data-name=${item}><i class="fas fa-drumstick-bite"></i></button>
-    
-                    <button title='Preserved' class='pres-btn btn' value=${amount} data-key=${key}><i class="fas fa-box-open"></i></button>
-    
-                    <button title='Donate' class='donate-btn btn' value=${amount} data-key=${key}><i class="fas fa-heart"></i></button>
-    
-                    <button title='Compost' class='compost-btn btn'value=${amount} data-key=${key}><i class="fas fa-seedling"></i></button>
-    
-                    <button title='Thrown Out' class='pitched-btn btn' value=${amount} data-key=${key}><i class="fas fa-trash-alt"></i></button>
-                </div>`      
-            );
-            countdown(item,difference);
+    // function counter(){
+    //     $('.list').empty();
+
+    //     database.ref('child/food').on('child_added', function(ss){
             
-            $('.item-container').off("click").on("click",function() {
-                $('.button-container').not($(this).next()).hide(200);
-                $(this).next('.button-container').toggle(400);
-
-                //used button
-                $('.used-btn').off("click").on("click",function(){
-                    var foodItem = $(this).attr('data-name');
-                    var valOfBtn = $('.used-btn[data-name='+foodItem+']').val();
-                    var num = parseInt(valOfBtn);
-                    keyref = $(this).attr("data-key");
-                    // var oldVal = parseInt(localStorage.getItem("used"));
-                    // console.log(oldVal);
-                    // used = oldVal+num;
-                    usedArr.push(num);
-                    used = usedArr.reduce((x, y) => x + y);
-                    updateStats();
-                    // localStorage.setItem("used", used);
-                    // $(".user-used").text(localStorage.getItem("used"));
-                    // console.log(usedArr);
-                    // $('.user-used').text(used);  
-                    // database.ref().child(keyref).remove();
-                    // $('#thisdiv').load(document.URL +  ' #thisdiv');
-                    return false;
-                });
-            });
-        })
-    };
-    setInterval(counter, 300000);
+    //             });
+    //         });
+    //     })
+    // };
+    // setInterval(counter, 300000);
     
 
 

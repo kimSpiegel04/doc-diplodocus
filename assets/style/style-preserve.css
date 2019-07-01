@@ -1,0 +1,243 @@
+/* INDEX */
+
+body{
+    font-family: 'Roberto', sans-serif;
+}
+
+html,body {
+    height: 100vh;
+    background-image: linear-gradient(
+        to right bottom,
+        rgba(51, 206, 4, 0.253),
+        rgba(0, 36, 3, 0.8)),
+    url(../images/monika-grabkowska-686440-unsplash.jpg);
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.wrapper{
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+.beet{
+    height: 150px;
+    margin-left: 25px;
+}
+
+#sidebar {
+    min-width: 200px;
+    max-width: 200px;
+    min-height: 100vh;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+#sidebar.active {
+    margin-left: -200px;
+}
+
+p {
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #999;
+}
+
+a, a:hover, a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: rgba(127, 42, 73, 0.486);
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+#sidebar ul li a:hover {
+    background-color: rgba(127, 42, 73, 0.5);
+}
+
+.navbar{
+    background-color: rgba(61, 61, 61, 0.75);
+    text-align: center;
+    margin-right: 50px;
+    width: 50px;
+}
+
+#sidebarCollapse:hover{
+    cursor: pointer;
+    color: #7F2A49;
+}
+
+.container-fluid{
+    text-align: center;
+    margin-right: 20px;
+}
+
+#sidebarCollapse{
+    color: white;
+}
+
+.header{
+    width: 100%;
+    box-shadow: -5px 10px 26px -9px rgba(140,138,140,1);
+    background-color: #e8e6e3c9;
+    height: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.title{
+    font-family: 'Rubik Mono One', sans-serif;
+    position: absolute;
+    color: #7F2A49;
+    top: -12px;
+    left: 30px;
+    text-shadow: -1px 0 #e8e6e3, 0 1px #e8e6e3, 1px 0 #e8e6e3, 0 -1px #e8e6e3;
+}
+
+.input-item{
+    text-align: center;
+    padding: 10px;
+}
+
+.text{
+    height:38px;
+    width: 45%;
+}
+
+.lookup{
+    background-color:rgba(61, 61, 61, 0.75);
+}
+
+.info-button{
+    height: 38px;
+    width: 20%;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+}
+
+.info-button:hover{
+    cursor: pointer;
+    background-color: rgb(50, 112, 53);
+}
+
+
+.lbs-listing{
+    color: white;
+}
+
+.item-listing{
+    color: white;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.button-container {
+    display:none;
+    text-align: center;
+}
+
+.freezer-list{
+    background-color:rgba(61, 61, 61, 0.75);
+    height: 96.5%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    width: 100%;
+}
+
+.item-container {
+    display: flex;
+    padding: 5px;
+    justify-content: space-between; 
+    transition: all 100ms;
+    transition-timing-function: ease-in;
+    font-size: 20px;
+}
+
+.item-container:hover {
+    cursor: pointer;
+    background-color:rgba(127, 42, 73, 0.514);
+}
+
+.fas{
+    clear:both;
+    margin-left: .3%;
+    margin-right: .3%;
+    text-align: center;
+}
+
+.fa-drumstick-bite{
+    color: white;
+    background-color: lightcoral;
+}
+
+.used-btn{
+    color: white;
+    background-color: lightcoral;
+    padding: 5px;
+    width: 15%;
+}
+
+.used-btn:active,.fa-drumstick-bite:active{
+    background-color: rgb(185, 101, 101);
+}
+
+.compost-btn{
+    color: white;
+    background-color: lightgreen;
+    padding: 5px;
+    width: 15%;
+}
+
+.fa-seedling{
+    color: white;
+    background-color: lightgreen;
+}
+
+.fa-seedling:active,.compost-btn:active{
+    background-color: rgb(110, 182, 110);
+}
+
+.pitched-btn{
+    color: white;
+    background-color: red;
+    padding: 5px;
+    width: 15%;
+}
+
+.fa-trash-alt{
+    color: white;
+    background-color: red;
+    padding: 5px;
+    width: 15%;
+}
+
+.fa-trash-alt:active,.pitched-btn:active{
+    background-color: rgb(172, 0, 0);
+}
+
+
