@@ -251,16 +251,161 @@ $(document).ready(function () {
     //     $('.list').empty();
 
     //     database.ref('child/food').on('child_added', function(ss){
-            
-    //             });
-    //         });
-    //     })
-    // };
-    // setInterval(counter, 300000);
+    //         var key = ss.key;
+    //         var item = ss.val().item;
+    //         var amount = ss.val().amount;
+    //         var inputDate = ss.val().inputDate;
+    //         now = new Date().getTime();
     
-
-
-
+    //         //calculate expiration date
+    //         expiresDate = getExpDate(inputDate);
+    
+    //         //calculate how many days food expires
+    //         difference = getDifference(now,expiresDate);
+            
+    //         $('.list').append(
+    //             `<div class='item-container row' data-name=${item} data-key=${key}>
+    //                 <div class='item-listing col-6'>${item}</div>
+    //                 <div class='lbs-listing col-3'>${amount} lbs.</div>
+    //                 <div class='exp-listing col-3' id=${item}>${difference} days</div>
+    //             </div>
+    //                 <div class="button-container" data-name=${item} data-key=${key}>
+    
+    //                 <button value=${amount} data-key=${key} title="Used Item" class='used-btn btn' data-name=${item}><i class="fas fa-drumstick-bite"></i></button>
+    
+    //                 <button title='Preserved' class='pres-btn btn' value=${amount} data-key=${key} data-name=${item}><i class="fas fa-box-open"></i></button>
+    
+    //                 <button title='Donate' class='donate-btn btn' value=${amount} data-key=${key} data-name=${item}><i class="fas fa-heart"></i></button>
+    
+    //                 <button title='Compost' class='compost-btn btn'value=${amount} data-key=${key} data-name=${item}><i class="fas fa-seedling"></i></button>
+    
+    //                 <button title='Thrown Out' class='pitched-btn btn' value=${amount} data-key=${key} data-name=${item}><i class="fas fa-trash-alt"></i></button>
+    //             </div>`         
+    //         );
+    //         countdown(item,difference);
+    
+    //         $('.item-container').off("click").on("click",function() {
+    //             $('.button-container').not($(this).next()).hide(200);
+    //             $(this).next('.button-container').toggle(400);
+    
+    //             //used button
+    //             $('.used-btn').off("click").on("click",function(){
+    //                 var foodItem = $(this).attr('data-name');
+    //                 console.log(foodItem);
+    //                 var valOfBtn = $('.used-btn[data-name='+foodItem+']').val();
+    //                 var num = parseInt(valOfBtn);
+    //                 var newAmount=used+num;
+    //                 database.ref('child/used').set({
+    //                     lbsUsed: newAmount
+    //                 });
+    //                 keyref = $(this).attr("data-key");
+    //                 database.ref('child/food').child(keyref).remove();
+    //                 window.location.reload();
+    //                 return false;
+    //             });
+    
+    //             // preserve button
+    //             $('.pres-btn').off("click").on("click",function(){
+    //                 var foodItem = $(this).attr('data-name');
+    //                 console.log(foodItem);
+    //                 var keyref = $(this).attr("data-key");
+    //                 var item = $(this).attr('data-name');
+    //                 var amount = $(this).attr('value');
+                    
+    //                 var freezerItem = {
+    //                     item : item,
+    //                     amount : amount,
+    //                     inputDate : firebase.database.ServerValue.TIMESTAMP
+    //                 }
+    
+    //                 database.ref('child/freezer').push(freezerItem);
+    //                 database.ref('child/food').child(keyref).remove();
+    //                 window.location.reload();
+    //                 return false;
+    //             });
+    
+    //             //donate button
+    //             $('.donate-btn').off("click").on("click",function(){
+    //                 var foodItem = $(this).attr('data-name');
+    //                 var valOfBtn = $('.donate-btn[data-name='+foodItem+']').val();
+    //                 var num = parseInt(valOfBtn);
+    //                 var newAmount=donated+num;
+    //                 database.ref('child/donated').set({
+    //                     lbsDonated: newAmount
+    //                 });
+    //                 keyref = $(this).attr("data-key");
+    //                 database.ref('child/food').child(keyref).remove();
+    //                 window.location.reload();
+    //                 return false;
+    //             });
+    
+    //             //compost button
+    //             $('.compost-btn').off("click").on("click",function(){
+    //                 var foodItem = $(this).attr('data-name');
+    //                 var valOfBtn = $('.compost-btn[data-name='+foodItem+']').val();
+    //                 var num = parseInt(valOfBtn);
+    //                 var newAmount=composted+num;
+    //                 database.ref('child/compost').set({
+    //                     lbsComposted: newAmount
+    //                 });
+    //                 keyref = $(this).attr("data-key");
+    //                 database.ref('child/food').child(keyref).remove();
+    //                 window.location.reload();
+    //                 return false;
+    //             });
+    
+    //             //thrown out button
+    //             $('.pitched-btn').off("click").on("click",function(){
+    //                 var foodItem = $(this).attr('data-name');
+    //                 var valOfBtn = $('.pitched-btn[data-name='+foodItem+']').val();
+    //                 var num = parseInt(valOfBtn);
+    //                 var newAmount=pitched+num;
+    //                 database.ref('child/pitched').set({
+    //                     lbsPitched: newAmount
+    //                 });
+    //                 keyref = $(this).attr("data-key");
+    //                 database.ref('child/food').child(keyref).remove();
+    //                 window.location.reload();
+    //                 return false;
+    //             });
+    
+    //         });
+    //     }, function(errorObject){
+    //         console.log('The read failed: '+errorObject.code);
+    //     });
+    
+    //     database.ref('child/used').on("value", function(snapshot) {        
+    //         console.log(snapshot.val());
+    //         used = snapshot.val().lbsUsed;
+    //         $('.user-used').text(used);
+    //     }, function(errorObject) {
+    //         console.log("The read failed: " + errorObject.code);
+    //     });
+    
+    //     database.ref('child/donated').on("value", function(snapshot) {  
+    //         console.log(snapshot.val());
+    //         donated = snapshot.val().lbsDonated;
+    //         $('.user-donated').text(donated);
+    //     }, function(errorObject) {
+    //         console.log("The read failed: " + errorObject.code);
+    //     });
+    
+    //     database.ref('child/compost').on("value", function(snapshot) {  
+    //         console.log(snapshot.val());
+    //         composted = snapshot.val().lbsComposted;
+    //         $('.user-composted').text(composted);
+    //     }, function(errorObject) {
+    //         console.log("The read failed: " + errorObject.code);
+    //     });
+    
+    //     database.ref('child/pitched').on("value", function(snapshot) {  
+    //         console.log(snapshot.val());
+    //         pitched = snapshot.val().lbsPitched;
+    //         $('.user-pitched').text(pitched);
+    //     }, function(errorObject) {
+    //         console.log("The read failed: " + errorObject.code);
+    //     });
+    // } setInterval(counter, 300000);
 });
 
 

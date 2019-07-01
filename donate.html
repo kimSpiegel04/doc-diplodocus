@@ -3,81 +3,98 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Beet Waste</title>
+    <title>Beet Waste: Donate</title>
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-database.js"></script>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/style/style.css">
+    <link rel="stylesheet" href="assets/style/donate.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto|Rubik+Mono+One&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a23a8b73c4.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
-    <div class='header'>
-        <h1 class='title'>Beet Waste</h1>
-    </div>
+    <div class="wrapper">
 
+        <!-- Sidebar -->
+        <nav id="sidebar" class='active'>
+            <div class="sidebar-header">
+                <img src="assets/images/header-beet.png" alt="beet" class='beet'>
+            </div>
+    
+            <ul class="list-unstyled components">
+                <li>
+                    <a href="index.html">My Dashboard</a>
+                </li>
+                <li>
+                    <a href="recipe.html">Find Recipes</a>
+                </li>
+                <li>
+                    <a href="preserve.html">How to Preserve</a>
+                </li>
+                <li>
+                    <a href="#">Donate</a>
+                </li>
+                <li>
+                    <a href="compost.html">Composting Tips</a>
+                </li>   
+                <li>
+                    <a href="user-info.html">User Information</a>
+                </li> 
+            </ul>
+        </nav>
 
-    <div class='container'>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+    
+                <a id="sidebarCollapse">
+                    <i class="chevron fas fa-chevron-right fa-lg"></i>
+                </a>
+    
+            </div>
+        </nav>
+        <!-- id="content" -->
+        <div class='container'>
 
-        <div class="row">
-            <!-- input and stats -->
-            <div class="col-4">
-                <!-- input -->
-                <div class='row submit left-row'>
-                    <form class='input-item'>
-                        <input type='text' class='text' placeholder="Item">
-                        <input type="number" class='num-input'>
-                        <select name="quantity" class='select'>
-                            <option value="lbs">lbs</option>
-                            <option value="quant">quant</option>
-                            <option value="cups">cups</option>
-                        </select>
-                        <button type="button" class="submit-button">Add</button>
-                    </form>
-                </div>
-                <!-- stats -->
-                <div class='row stats left-row'>
-                    <h3>See how you're doing:</h3>
-                    <p>Bought: <span class='user-stat'>300</span> lbs.</p>                    
-                    <p>Used: <span class='user-stat'>200</span> lbs.</p>                    
-                    <p>Donated: <span class='user-stat'>20</span> lbs.</p>
-                    <p>Composted: <span class='user-stat'>20</span> lbs.</p>                    
-                    <p>Pitched: <span class='user-stat'>60</span> lbs.</p>
-                    
-                </div>
+            <div class='header'>
+                <h1 class='title'>Beet Waste</h1>
             </div>
 
+                <div class="row">
 
-            <!-- item list -->
-            <div class="col-8">
-                <div class='list'>
-                    <div class="item-container">
-                        <ul>
-                            <li class='item-listing'>Item</li>
-                            <li class='lbs-listing'>lbs</li>
-                            <li class='exp-listing'>Expires</li>
-                        </ul>
+                    <!-- push map info here -->
+                    <div class="col-5">
+                        <div id='map-info'>
+                            <h3 id='info-title'>Food Pantry Information</h3>
+                            <p class='info-title-p'>Click on a marker for more information.</p>
+                            <div id='put-info'></div>
+                            <p class='info-title-p'>Learn more about donating perishable food on the U.S. Enviornmental Protection Agency's <a href='https://www.epa.gov/recycle/donating-food' class='epa-link'>website</a>.</p>
+                        </div>
                     </div>
-                    <div class="button-container">
-                        <a href="#"><i class="fas fa-drumstick-bite" title="Used Item"></i></a>
-                        <a href="recipe.html" title='Find Recipe'><i class="fas fa-book"></i></a>
-                        <a href="storage.html" title='Preserve'><i class="fas fa-box-open"></i></a>
-                        <a href="donate.html" title='Donate'><i class="fas fa-heart"></i></a>
-                        <a href="compost.html" title='Compost'><i class="fas fa-seedling"></i></a>
-                        <a href="#" title='Thrown Out'><i class="fas fa-trash-alt"></i></i></a>
+
+                    <div class="col-1"></div>
+
+                    <!-- map -->
+                    <div class="col-6">
+                        <h3 class='map-title'>Find local food banks</h3>
+                        <div id='map'></div>
                     </div>
-                    
+
                 </div>
-            </div>
-
         </div>
-
     </div>
 
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="assets/javascript/app.js"></script>
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_sgWYp8zPQ1v6JxMrywbMvorY3Lp04yM&callback=initMap">
+    </script>
+    <script src="assets/javascript/donate.js"></script>
 </body>
 </html>
