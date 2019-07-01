@@ -8,7 +8,7 @@ html,body {
     height: 100vh;
     background-image: linear-gradient(
         to right bottom,
-        rgba(51, 206, 4, 0.253),
+        rgba(35, 145, 1, 0.253),
         rgba(0, 36, 3, 0.8)),
     url(../images/monika-grabkowska-686440-unsplash.jpg);
     background-size: cover;
@@ -116,35 +116,18 @@ a, a:hover, a:focus {
     text-shadow: -1px 0 #e8e6e3, 0 1px #e8e6e3, 1px 0 #e8e6e3, 0 -1px #e8e6e3;
 }
 
-.input-item{
-    text-align: center;
-    padding: 10px;
+.h3 {
+    background-color: rgba(61, 61, 61, 0.75);
+    color: white;
 }
 
-.text{
-    height:38px;
-    width: 45%;
+.h3>p{
+    font-size: 20px;
 }
 
 .lookup{
     background-color:rgba(61, 61, 61, 0.75);
 }
-
-.info-button{
-    height: 38px;
-    width: 20%;
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-}
-
-.info-button:hover{
-    cursor: pointer;
-    background-color: rgb(50, 112, 53);
-}
-
 
 .lbs-listing{
     color: white;
@@ -154,6 +137,11 @@ a, a:hover, a:focus {
     color: white;
     font-weight: 600;
     text-transform: capitalize;
+}
+
+.gsc-control-cse {
+    border-color: rgba(61, 61, 61, 0.75);
+    background-color: rgba(61, 61, 61, 0.75);
 }
 
 .button-container {

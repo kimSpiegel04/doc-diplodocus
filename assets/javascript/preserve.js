@@ -99,11 +99,11 @@ $(document).ready(function () {
 
     });
 
-    database.ref('child/used').on("value", function(snapshot) {       
-        used = snapshot.val().lbsUsed;
-    }, function(errorObject) {
-        console.log("The read failed: " + errorObject.code);
-    });
+    // database.ref('child/used').on("value", function(snapshot) {       
+    //     used = snapshot.val().lbsUsed;
+    // }, function(errorObject) {
+    //     console.log("The read failed: " + errorObject.code);
+    // });
 
     // function counter(){
     //     $('.list').empty();
