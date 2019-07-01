@@ -186,11 +186,8 @@ a, a:hover, a:focus {
 .item-listing{
     color: white;
     font-weight: 600;
+    text-transform: capitalize;
 }
-
-/* .exp-listing{
-    float: right;
-} */
 
 .button-container {
     display:none;
@@ -199,6 +196,10 @@ a, a:hover, a:focus {
 
 .list{
     background-color:rgba(61, 61, 61, 0.75);
+    height: 96.5%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    width: 100%;
 }
 
 .item-container {
@@ -209,8 +210,6 @@ a, a:hover, a:focus {
     transition-timing-function: ease-in;
     font-size: 20px;
 }
-
-fa-drumstick-bite
 
 .item-container:hover {
     cursor: pointer;
@@ -229,56 +228,72 @@ fa-drumstick-bite
 .fa-drumstick-bite{
     color: white;
     background-color: lightcoral;
+}
+
+.used-btn{
+    color: white;
+    background-color: lightcoral;
     padding: 5px;
     width: 15%;
 }
 
-.fa-drumstick-bite:active{
+.used-btn:active,.fa-drumstick-bite:active{
     background-color: rgb(185, 101, 101);
 }
 
-.fa-book{
-    color: white;
-    background-color: lightblue;
-    padding: 5px;
-    width: 15%;
-}
-
-.fa-book:active{
-    background-color: rgb(141, 174, 185);
-}
-
-.fa-box-open{
+.pres-btn{
     color: white;
     background-color: plum;
     padding: 5px;
     width: 15%;
 }
 
-.fa-box-open:active{
+.fa-box-open{
+    color: white;
+    background-color: plum;
+}
+
+.fa-box-open:active,.pres-btn:active{
     background-color: rgb(158, 116, 158);
 }
 
-.fa-heart{
+.donate-btn{
     color: white;
     background-color: pink;
     padding: 5px;
     width: 15%;
 }
 
-.fa-heart:active{
+.fa-heart{
+    color: white;
+    background-color: pink;
+}
+
+.fa-heart:active,.donate-btn:active{
     background-color: rgb(175, 131, 139);
 }
 
-.fa-seedling{
+.compost-btn{
     color: white;
     background-color: lightgreen;
     padding: 5px;
     width: 15%;
 }
 
-.fa-seedling:active{
+.fa-seedling{
+    color: white;
+    background-color: lightgreen;
+}
+
+.fa-seedling:active,.compost-btn:active{
     background-color: rgb(110, 182, 110);
+}
+
+.pitched-btn{
+    color: white;
+    background-color: red;
+    padding: 5px;
+    width: 15%;
 }
 
 .fa-trash-alt{
@@ -288,7 +303,7 @@ fa-drumstick-bite
     width: 15%;
 }
 
-.fa-trash-alt:active{
+.fa-trash-alt:active,.pitched-btn:active{
     background-color: rgb(172, 0, 0);
 }
 

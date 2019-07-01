@@ -1,11 +1,9 @@
 $(document).ready(function () {
-    //show values
-    $(".user-bought").text(localStorage.getItem("bought"));
-
-    // document.querySelector('#sidebar').classList.remove('active');
+    //sidebar menu
+    var chevron=$('.chevron');
     $('#sidebarCollapse').on('click', function () {
         $('#sidebar').toggleClass('active');
-        // $('#sidebarCollapse').html('<i class="fas fa-chevron-left fa-lg"</i>');
+        chevron.toggleClass('fa-chevron-right fa-chevron-left');
     });
 
     // Initialize Firebase
@@ -23,18 +21,12 @@ $(document).ready(function () {
 
     //Global Vars
     var database=firebase.database();
+
     var bought=0;
-    var boughtArr=[3,2,1];
     var used=0;
-    var usedArr=[];
     // var donated=0;
     // var composted=0;
     // var pitched=0;
-
-
-    // //Js vars
-    // var expiresDate;
-    // var difference;
 
     //functions
     function getExpDate(input){
@@ -58,8 +50,6 @@ $(document).ready(function () {
         }
     }
 
-    bought = boughtArr.reduce((x, y) => x + y);
-
     $('#submit-info').on('click', function(event){
         event.preventDefault();
 
@@ -68,12 +58,8 @@ $(document).ready(function () {
         var amount=$('#number').val().trim();
         var num=parseInt(amount);
 
-        //update bought amount
-        boughtArr.push(num);
-        bought = boughtArr.reduce((x, y) => x + y);
-        localStorage.clear();
-        localStorage.setItem("bought", bought);
-        $(".user-bought").text(localStorage.getItem("bought"));
+        //add bought lbs
+        var newAmount=bought+num;
 
         // temp object for data
         var newFood={
@@ -82,16 +68,25 @@ $(document).ready(function () {
             inputDate: firebase.database.ServerValue.TIMESTAMP
         }
 
-        database.ref().push(newFood);
+        database.ref('child/food').push(newFood);
+        database.ref('child/bought').set({
+            lbsBought: newAmount
+        });
 
         $('#text').val('');
         $('#number').val('');
     });
 
-// database.ref().on("value", function(snapshot) {
-// });
-    database.ref().on('child_added', function(ss){
-        // console.log(ss.val());
+    database.ref('child/bought').on("value", function(snapshot) {
+        console.log(snapshot.val());
+        bought = snapshot.val().lbsBought;
+        $('.user-bought').text(bought);
+
+    }, function(errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });
+
+    database.ref('child/food').on('child_added', function(ss){
         var key = ss.key;
         var item = ss.val().item;
         var amount = ss.val().amount;
@@ -100,11 +95,9 @@ $(document).ready(function () {
 
         //calculate expiration date
         expiresDate = getExpDate(inputDate);
-        console.log('food will expire on '+expiresDate);
 
         //calculate how many days food expires
         difference = getDifference(now,expiresDate);
-        console.log('food will expire in '+difference+' days');
 
         $('.list').append(
             `<div class='item-container row' data-name=${item} data-key=${key}>
@@ -114,38 +107,70 @@ $(document).ready(function () {
             </div>
                 <div class="button-container" data-name=${item} data-key=${key}>
 
-                <button value=${amount} data-key=${key} class='used-btn'><i class="fas fa-drumstick-bite" title="Used Item" ></i></button>
+                <button value=${amount} data-key=${key} title="Used Item" class='used-btn btn' data-name=${item}><i class="fas fa-drumstick-bite"></i></button>
 
-                <button title='Preserved' class='preserved'><i class="fas fa-box-open" value=${amount} data-key=${key}></i></button>
+                <button title='Preserved' class='pres-btn btn' value=${amount} data-key=${key}><i class="fas fa-box-open"></i></button>
 
-                <button title='Donate' class='donate'><i class="fas fa-heart" value=${amount} data-key=${key}></i></button>
+                <button title='Donate' class='donate-btn btn' value=${amount} data-key=${key}><i class="fas fa-heart"></i></button>
 
-                <button title='Compost' class='compost'><i class="fas fa-seedling" value=${amount} data-key=${key}></i></button>
+                <button title='Compost' class='compost-btn btn'value=${amount} data-key=${key}><i class="fas fa-seedling"></i></button>
 
-                <button title='Thrown Out' class='pitched'><i class="fas fa-trash-alt" value=${amount} data-key=${key}></i></button>
+                <button title='Thrown Out' class='pitched-btn btn' value=${amount} data-key=${key}><i class="fas fa-trash-alt"></i></button>
             </div>`         
         );
         countdown(item,difference);
-        $('.item-container').click(function() {
-            $('.button-container').hide();
-            var foodItem = $(this).attr('data-name');
-            $('.button-container[data-name=' + foodItem + ']').show();
-            return false;
+
+        $('.item-container').off("click").on("click",function() {
+            $('.button-container').not($(this).next()).hide(200);
+            $(this).next('.button-container').toggle(400);
+
+            //used button
+            $('.used-btn').off("click").on("click",function(){
+                var foodItem = $(this).attr('data-name');
+                var valOfBtn = $('.used-btn[data-name='+foodItem+']').val();
+                var num = parseInt(valOfBtn);
+                var newAmount=used+num;
+
+                database.ref('child/used').set({
+                    lbsUsed: newAmount
+                });
+
+                database.ref('child/used').on("value", function(snapshot) {        
+                    console.log(snapshot.val());
+                    used = snapshot.val().lbsUsed;
+                    $('.user-used').text(used);
+            
+                }, function(errorObject) {
+                    console.log("The read failed: " + errorObject.code);
+                });
+
+                keyref = $(this).attr("data-key");
+                // $('.user-used').text(used);  
+                // database.ref().child(keyref).remove();
+                // $('#thisdiv').load(document.URL +  ' #thisdiv');
+                return false;
+            });
         });
 
-        $(".fa-drumstick-bite").click(function() {
-            console.log(this);
-            // console.log(this)
-            keyref = $(this).attr("data-key");
-            // console.log(keyref);
-            // usedArr.push($(this).val());
-            // used = boughtArr.reduce((x, y) => x + y);
-            // used = used + Number($(this).val());
-            // console.log(usedArr);
-            // $('.user-used').text(used);  
-            // database.ref().child(keyref).remove();
-            // $('#thisdiv').load(document.URL +  ' #thisdiv');
-        });
+        // $(".button-container").click(function() {
+        //     $('.used-btn').click(function(){
+        //         var foodItem = $(this).attr('data-name');
+        //         console.log(foodItem);
+        //         var valOfBtn = $('.used-btn[data-name='+foodItem+']').val();
+        //         console.log(valOfBtn);
+        //         // console.log(this)
+        //         keyref = $(this).attr("data-key");
+        //         return false;
+                // console.log(keyref);
+                // usedArr.push($(this).val());
+                // used = boughtArr.reduce((x, y) => x + y);
+                // used = used + Number($(this).val());
+                // console.log(usedArr);
+                // $('.user-used').text(used);  
+                // database.ref().child(keyref).remove();
+                // $('#thisdiv').load(document.URL +  ' #thisdiv');
+            // });
+        // });
         // boughtArr.push(num);
         // bought = boughtArr.reduce((x, y) => x + y);
         // localStorage.clear();
@@ -155,27 +180,11 @@ $(document).ready(function () {
     }, function(errorObject){
         console.log('The read failed: '+errorObject.code);
     });
-                $(".fa-drumstick-bite").click(function() {
-                console.log(this);
-                // keyref = $(this).attr("data-key");
-                // console.log(keyref);
-                // // usedArr.push(Number($(this).val()));
-                // // used = used + Number($(this).val());
-                // console.log(Number($(this).val()));
-                // $('.user-used').text(used);  
-                // database.ref().child(keyref).remove();
-                // $('#thisdiv').load(document.URL +  ' #thisdiv');
-            });
-            // boughtArr.push(num);
-            // bought = boughtArr.reduce((x, y) => x + y);
-            // localStorage.clear();
-            // localStorage.setItem("bought", bought);
-            // $(".user-bought").text(localStorage.getItem("bought"));
 
     function counter(){
         $('.list').empty();
 
-        database.ref().on('child_added', function(ss){
+        database.ref('child/food').on('child_added', function(ss){
             var key = ss.key;
             var item = ss.val().item;
             var amount = ss.val().amount;
@@ -184,40 +193,61 @@ $(document).ready(function () {
 
             //calculate expiration date
             expiresDate = getExpDate(inputDate);
-            console.log('food will expire on '+expiresDate);
 
             //calculate how many days food expires
             difference = getDifference(now,expiresDate);
-            console.log('food will expire in '+difference+' days');
-
 
             $('.list').append(
                 `<div class='item-container row' data-name=${item} data-key=${key}>
                     <div class='item-listing col-6'>${item}</div>
                     <div class='lbs-listing col-3'>${amount} lbs.</div>
-                    <div class='exp-listing col-3'>${difference} days</div>
-                </div>
+                    <div class='exp-listing col-3' id=${item}>${difference} days</div>
                 </div>
                     <div class="button-container" data-name=${item} data-key=${key}>
-                    <a href="#"><i class="fas fa-drumstick-bite" title="Used Item" value=${amount}></i></a>
-                    <a href="#" title='Preserved' class='preserved'><i class="fas fa-box-open" value=${amount}></i></a>
-                    <a href="#" title='Donate' class='donate'><i class="fas fa-heart" value=${amount}></i></a>
-                    <a href="#" title='Compost' class='compost'><i class="fas fa-seedling" value=${amount}></i></a>
-                    <a href="#" title='Thrown Out' class='pitched'><i class="fas fa-trash-alt" value=${amount}></i></i></a>
-                </div>`        
+    
+                    <button value=${amount} data-key=${key} title="Used Item" class='used-btn btn' data-name=${item}><i class="fas fa-drumstick-bite"></i></button>
+    
+                    <button title='Preserved' class='pres-btn btn' value=${amount} data-key=${key}><i class="fas fa-box-open"></i></button>
+    
+                    <button title='Donate' class='donate-btn btn' value=${amount} data-key=${key}><i class="fas fa-heart"></i></button>
+    
+                    <button title='Compost' class='compost-btn btn'value=${amount} data-key=${key}><i class="fas fa-seedling"></i></button>
+    
+                    <button title='Thrown Out' class='pitched-btn btn' value=${amount} data-key=${key}><i class="fas fa-trash-alt"></i></button>
+                </div>`      
             );
+            countdown(item,difference);
+            
+            $('.item-container').off("click").on("click",function() {
+                $('.button-container').not($(this).next()).hide(200);
+                $(this).next('.button-container').toggle(400);
 
-            // $('.item-container').click(function() {
-            //     // $('.button-container').hide();
-            //     var foodItem = $(this).attr('data-name');
-            //     $('.button-container[data-name=' + foodItem + ']').show();
-            //     // return false;
-            // });
-
-
+                //used button
+                $('.used-btn').off("click").on("click",function(){
+                    var foodItem = $(this).attr('data-name');
+                    var valOfBtn = $('.used-btn[data-name='+foodItem+']').val();
+                    var num = parseInt(valOfBtn);
+                    keyref = $(this).attr("data-key");
+                    // var oldVal = parseInt(localStorage.getItem("used"));
+                    // console.log(oldVal);
+                    // used = oldVal+num;
+                    usedArr.push(num);
+                    used = usedArr.reduce((x, y) => x + y);
+                    updateStats();
+                    // localStorage.setItem("used", used);
+                    // $(".user-used").text(localStorage.getItem("used"));
+                    // console.log(usedArr);
+                    // $('.user-used').text(used);  
+                    // database.ref().child(keyref).remove();
+                    // $('#thisdiv').load(document.URL +  ' #thisdiv');
+                    return false;
+                });
+            });
         })
     };
-    setInterval(counter, 86400000);
+    setInterval(counter, 300000);
+    
+
 
 
 });
