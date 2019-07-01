@@ -4,6 +4,9 @@
 <head>
     <meta charset="utf-8">
     <title>Beet Waste</title>
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-database.js"></script>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/style/style.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto|Rubik+Mono+One&display=swap" rel="stylesheet">
@@ -14,7 +17,7 @@
     <div class="wrapper">
 
         <!-- Sidebar -->
-        <nav id="sidebar">
+        <nav id="sidebar" class='active'>
             <div class="sidebar-header">
                 <img src="assets/images/header-beet.png" alt="beet" class='beet'>
             </div>
@@ -27,7 +30,7 @@
                     <a href="recipe.html">Find Recipes</a>
                 </li>
                 <li>
-                    <a href="storage.html">How to Preserve</a>
+                    <a href="preserve.html">How to Preserve</a>
                 </li>
                 <li>
                     <a href="donate.html">Donate</a>
@@ -36,7 +39,7 @@
                     <a href="compost.html">Composting Tips</a>
                 </li>   
                 <li>
-                    <a href="#">User Information</a>
+                    <a href="#.html">User Information</a>
                 </li> 
             </ul>
         </nav>
@@ -45,7 +48,7 @@
             <div class="container-fluid">
     
                 <a id="sidebarCollapse">
-                    <i class="fas fa-chevron-right fa-lg"></i>
+                    <i class="chevron fas fa-chevron-right fa-lg"></i>
                 </a>
     
             </div>
@@ -61,22 +64,27 @@
 
 
 
-            <div class="col-12 store-container">
-                <ul class='store-list'>
-                    <li class='logo-info'></li>
-                </ul>
-            </div>
+            <div class="row">
+
+                    
+                    <div class='col-6'>
+                        <h1>under construction</h1>
+                        <img src="assets/images/shrug-edit.png" alt="oops!">
+                    </div>
+
+
+                </div>
 
         </div>
     </div>
 
 
-
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="assets/javascript/app.js"></script>
-    <script src='assets/javascript/stores.js'></script>
+    <!-- <script src='assets/javascript/stores.js'></script> -->
 </body>
 </html>
