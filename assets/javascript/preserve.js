@@ -99,11 +99,8 @@ $(document).ready(function () {
 
     });
 
-    database.ref('child/used').on("value", function(snapshot) {        
-        console.log(snapshot.val());
+    database.ref('child/used').on("value", function(snapshot) {       
         used = snapshot.val().lbsUsed;
-        $('.user-used').text(used);
-
     }, function(errorObject) {
         console.log("The read failed: " + errorObject.code);
     });

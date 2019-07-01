@@ -25,8 +25,8 @@ $(document).ready(function () {
     var bought = 0;
     var used = 0;
     var donated = 0;
-    // var composted=0;
-    // var pitched=0;
+    var composted=0;
+    var pitched=0;
 
     //functions
     function getExpDate(input){
@@ -149,25 +149,23 @@ $(document).ready(function () {
             $('.pres-btn').off("click").on("click",function(){
                 var foodItem = $(this).attr('data-name');
                 console.log(foodItem);
-                // getPreserveDate(inputDate)
-                // difference = getDifference(now,getPreserveDate);
-                keyref = $(this).attr("data-key");
-                item = $(this).attr('data-name');
-                amount = $(this).attr('value');
+                var keyref = $(this).attr("data-key");
+                var item = $(this).attr('data-name');
+                var amount = $(this).attr('value');
                 
                 var freezerItem = {
-                    item : ss.val().item,
-                    amount : ss.val().amount,
+                    item : item,
+                    amount : amount,
                     inputDate : firebase.database.ServerValue.TIMESTAMP
                 }
 
                 database.ref('child/freezer').push(freezerItem);
-                // store in new node
-
-                // window.location.reload();
+                database.ref('child/food').child(keyref).remove();
+                window.location.reload();
                 return false;
             });
 
+            //donate button
             $('.donate-btn').off("click").on("click",function(){
                 var foodItem = $(this).attr('data-name');
                 var valOfBtn = $('.donate-btn[data-name='+foodItem+']').val();
@@ -175,6 +173,36 @@ $(document).ready(function () {
                 var newAmount=donated+num;
                 database.ref('child/donated').set({
                     lbsDonated: newAmount
+                });
+                keyref = $(this).attr("data-key");
+                database.ref('child/food').child(keyref).remove();
+                window.location.reload();
+                return false;
+            });
+
+            //compost button
+            $('.compost-btn').off("click").on("click",function(){
+                var foodItem = $(this).attr('data-name');
+                var valOfBtn = $('.compost-btn[data-name='+foodItem+']').val();
+                var num = parseInt(valOfBtn);
+                var newAmount=composted+num;
+                database.ref('child/compost').set({
+                    lbsComposted: newAmount
+                });
+                keyref = $(this).attr("data-key");
+                database.ref('child/food').child(keyref).remove();
+                window.location.reload();
+                return false;
+            });
+
+            //thrown out button
+            $('.pitched-btn').off("click").on("click",function(){
+                var foodItem = $(this).attr('data-name');
+                var valOfBtn = $('.pitched-btn[data-name='+foodItem+']').val();
+                var num = parseInt(valOfBtn);
+                var newAmount=pitched+num;
+                database.ref('child/pitched').set({
+                    lbsPitched: newAmount
                 });
                 keyref = $(this).attr("data-key");
                 database.ref('child/food').child(keyref).remove();
@@ -191,7 +219,6 @@ $(document).ready(function () {
         console.log(snapshot.val());
         used = snapshot.val().lbsUsed;
         $('.user-used').text(used);
-
     }, function(errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
@@ -200,7 +227,22 @@ $(document).ready(function () {
         console.log(snapshot.val());
         donated = snapshot.val().lbsDonated;
         $('.user-donated').text(donated);
+    }, function(errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });
 
+    database.ref('child/compost').on("value", function(snapshot) {  
+        console.log(snapshot.val());
+        composted = snapshot.val().lbsComposted;
+        $('.user-composted').text(composted);
+    }, function(errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });
+
+    database.ref('child/pitched').on("value", function(snapshot) {  
+        console.log(snapshot.val());
+        pitched = snapshot.val().lbsPitched;
+        $('.user-pitched').text(pitched);
     }, function(errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
